@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href = 'style.css' rel = 'stylesheet'> 
+    <title> Acme.Second</title>
+</head>
+<body>
+    <h1>Acme First, Second, Third</h1>
+    
+    <div id= 'list'>
+
+    <div id = 'first'>   
+        <button> < </button>
+        <button id = 'button2'> > </button>
+               FIRST
+    </div>
+    <div id= 'second'>
+        <button id = 'button1'> < </button>
+        <button id = 'buttontwo'> > </button>
+        SECOND
+    </div>
+    <div id = 'third'>
+        <button id = 'button3'> < </button>
+        <button> ></button>
+        THIRD
+        </div>
+    </div>
+    
+
+     
+     <script>
+    const slots = ['first', 'second','third'] ;
+    const users = [
+         {id: 1, name:'moe', slot: 'first'},
+         {id: 2, name:'larry', slot: 'second'},
+         {id: 3, name:'curly', slot: 'third'},
+         {id: 4, name:'lucy', slot: 'third', selected: true},
+    ];
+    const lists = document.getElementById('list')
+    const first = document.getElementById('first');
+    const second = document.getElementById('second');
+    const third = document.getElementById('third');
+    const button = document.getElementById('button1');
+    function addNames (user){
+    for (var i = 0; i < users.length; i++){
+            let currUser =  users[i]
+        if(currUser.id === 1){
+            
+            const paragraph = document.createElement('p');
+            //<p> </p>
+            const name = document.createTextNode(currUser.name);
+            //moe
+            paragraph.appendChild(name);
+            //<p> moe</p>
+            document.getElementById('first').appendChild(paragraph);
+            //adding <p> moe</p> to the first id box
+        }
+        else if(currUser.id === 2){
+            
+            const paragraph = document.createElement('p');
+            //<p> </p>
+            const name = document.createTextNode(currUser.name);
+            //larry
+            paragraph.appendChild(name);
+            //<p> larry</p>
+            document.getElementById('second').appendChild(paragraph);
+            //adding <p> larry </p> to the first id box
+        }
+        else {
+            
+            const paragraph = document.createElement('p');
+            //<p> </p>
+            const name = document.createTextNode(currUser.name);
+            //moe
+            paragraph.appendChild(name);
+            //<p> curly lucy</p>
+            document.getElementById('third').appendChild(paragraph);
+            //adding <p> curly, lucy  </p> to the first id box
+        }
+        }
+    }
+         addNames(users);
+        const chosenNames = [];
+        lists.addEventListener('click', (ev) => {
+        const target = ev.target
+        const tagName = ev.target.tagName
+        console.log(tagName)
+        console.log(target)
+        if (target.tagName === 'P' && !target.className){
+        target.className = 'red';
+       
+    } else if (target.tagName === 'P' && target.className){
+        target.className = '';
+    }
+    
+  
+    const grabPsFirstDiv = first.querySelectorAll('p')
+        for (var i = 0; i < grabPsFirstDiv.length; i++){
+        let currP = grabPsFirstDiv[i];
+        if(currP.className === 'red' && target.id === 'button2'){
+            debugger;
+            const adoptedNode = document.adoptNode(currP);
+            second.appendChild(adoptedNode) 
+        }
+ }
+    const grabPSecondDiv = second.querySelectorAll('p')
+        for(var i = 0; i < grabPSecondDiv.length; i++){
+        let currP = grabPSecondDiv[i];
+        if(currP.className === 'red' && target.id === 'buttontwo'){
+         const adoptedNode = document.adoptNode(currP);
+         third.appendChild(adoptedNode);
+
+     }
+        else if (currP.className === 'red' && target.id === 'button1'){
+        const adoptedNode = document.adoptNode(currP);
+         first.appendChild(adoptedNode);
+     }
+ }
+
+    const grabPThirdDiv = third.querySelectorAll('p')
+        for(var i = 0; i < grabPThirdDiv.length; i++){
+         let currP = grabPThirdDiv[i];
+        if(currP.className === 'red' && target.id === 'button3'){
+        console.log('we are here');
+        const adoptedNode = document.adoptNode(currP)
+        second.appendChild(adoptedNode)
+     }
+ }
+});
+
+
+   </script>
+</body>
+</html>
